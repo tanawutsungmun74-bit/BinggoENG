@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BingGo Meeting CE&STT</title>
+    <title>BingGo ENG 2 CAMPUS </title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
@@ -93,12 +93,12 @@
 
 <div class="container">
     <div class="header-section">
-        <h1 class="main-title">BINGO<br>MEETING CE&STT</h1>
+        <h1 class="main-title">BINGO<br>ENG 2 CAMPUS</h1>
         <div class="flex-header">
-            <img src="https://i.postimg.cc/PJWTp6WW/loko-41p.png" onerror="this.src='https://via.placeholder.com/75'" class="logo-img"> 
+            <img src="https://i.postimg.cc/xqDmL3sc/AO8U2601.jpg" onerror="this.src='https://via.placeholder.com/75'" class="logo-img"> 
             <div class="thank-you-text">
-                ขอขอบคุณทุกท่านที่มาร่วมงาน<br>
-                <strong>Meeting 41 ปี วิศวกรรมโยธา</strong><br>
+                ขอขอบคุณทุกท่านที่มาร่วมสนุก<br>
+                <strong>สานสัมพันธ์วิศวฯ 2 วิทยาเขต ประจำปีการศึกษา 2569</strong><br>
                 ขอให้ทุกท่านสนุกกับค่ำคืนนี้
             </div>
         </div>
@@ -107,8 +107,8 @@
     <hr style="border:0; border-top:2px solid var(--gold-accent); margin: 15px 0;">
 
     <div id="login-section">
-        <input type="text" id="username" placeholder="ระบุชื่อ-นามสกุล">
-        <input type="text" id="userbatch" placeholder="ระบุรุ่น (เช่น CE1-STT1)">
+        <input type="text" id="username" placeholder="ชื่อ-นามสกุล">
+        <input type="text" id="userbatch" placeholder="ภาควิชา (เช่น Ch.E CE ECE)">
         <button class="btn-start" onclick="login()">เริ่มเล่นเกม</button>
     </div>
 
@@ -170,12 +170,12 @@
         const name = document.getElementById('username').value.trim();
         const batch = document.getElementById('userbatch').value.trim();
         
-        if (name === "meeting41civil") { 
+        if (name === "smoeng69") { 
             showAdmin(); 
             return;
         }
 
-        if (!name || !batch) return alert("กรุณากรอกทั้งชื่อและรุ่นครับ!");
+        if (!name || !batch) return alert("กรุณากรอกทั้งชื่อและภาควิชาครับ!");
         
         currentUser = name;
         currentBatch = batch;
