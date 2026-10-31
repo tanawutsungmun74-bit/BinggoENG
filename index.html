@@ -3,37 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BingGo ENG 2 CAMPUS </title>
+    <title>BingGo ENG 2 CAMPUS</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
     <style>
         :root {
-            --navy-blue: #001a33; 
+            --navy-blue: #111111; /* เปลี่ยนจากน้ำเงินเข้ม เป็นโทนดำเข้มเข้มเท่ๆ */
             --gold-accent: #d4af37; 
             --success-color: #28a745;
-            --danger-color: #dc3545;
+            --danger-color: #d32f2f; /* เปลี่ยนสีหลักของระบบเป็นสีแดงเข้มดุดัน */
             --light-gray: #f8f9fa;
+            --eng-red: #b71c1c; /* แดงเลือดหมูวิศวะ */
         }
 
         body {
             font-family: 'Kanit', sans-serif;
-            background-color: var(--navy-blue);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 100%);
             margin: 0; padding: 10px;
             display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(20, 20, 20, 0.96);
             padding: 25px; border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 40px rgba(183, 28, 28, 0.3);
             width: 100%; max-width: 480px; text-align: center;
-            border: 3px solid var(--gold-accent);
+            border: 3px solid var(--danger-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ตกแต่งลายเส้นเกียร์หรือลายวิศวะจางๆ เป็นพื้นหลัง */
+        .container::before {
+            content: "⚙️";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 8rem;
+            opacity: 0.04;
+            pointer-events: none;
         }
 
         .header-section { margin-bottom: 20px; }
-        .main-title { font-size: 2.2rem; font-weight: 800; color: var(--gold-accent); margin: 0; }
+        .main-title { 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            color: #ffffff; 
+            margin: 0; 
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.6);
+        }
+        .main-title span {
+            color: var(--danger-color);
+        }
 
         .flex-header {
             display: flex; align-items: center; justify-content: center;
@@ -42,45 +65,47 @@
 
         .logo-img {
             width: 75px; height: 75px; object-fit: cover;
-            border-radius: 12px; border: 2px solid var(--gold-accent); background: #fff;
+            border-radius: 12px; border: 2px solid var(--danger-color); background: #fff;
         }
 
-        .thank-you-text { font-size: 0.85rem; color: var(--navy-blue); flex: 1; }
+        .thank-you-text { font-size: 0.85rem; color: #cccccc; flex: 1; }
+        .thank-you-text strong { color: var(--danger-color); }
 
         .board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 15px 0; }
 
         .cell {
-            aspect-ratio: 1/1; background: var(--light-gray); border: 1px solid #ddd;
+            aspect-ratio: 1/1; background: #2a2a2a; border: 1px solid #444;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 8px;
-            color: var(--navy-blue); transition: 0.2s; user-select: none;
+            color: #ffffff; transition: 0.2s; user-select: none;
         }
 
-        .cell.marked { background-color: var(--danger-color) !important; color: white !important; }
-        .cell.free-slot { background-color: var(--gold-accent); color: white; font-size: 0.7rem; }
+        .cell.marked { background-color: var(--danger-color) !important; color: white !important; box-shadow: 0 0 8px var(--danger-color); }
+        .cell.free-slot { background-color: #b71c1c; color: white; font-size: 0.7rem; border: 1px dashed var(--gold-accent); }
 
         input {
             width: 90%; padding: 12px; margin-bottom: 12px; border-radius: 10px;
-            border: 2px solid #ddd; font-size: 1.1rem; text-align: center; outline: none;
+            border: 2px solid #444; background: #111; color: #fff; font-size: 1.1rem; text-align: center; outline: none;
         }
+        input:focus { border-color: var(--danger-color); }
 
         button { padding: 12px 20px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         button:active { transform: scale(0.98); }
-        .btn-start { background: var(--navy-blue); color: white; width: 95%; margin-top: 5px; }
+        .btn-start { background: var(--danger-color); color: white; width: 95%; margin-top: 5px; box-shadow: 0 4px 15px rgba(211,47,47,0.4); }
         .btn-bingo { background: var(--success-color); color: white; font-size: 1.6rem; width: 100%; box-shadow: 0 5px 15px rgba(40,167,69,0.3); }
-        .btn-outline { background: transparent; border: 2px solid var(--navy-blue); color: var(--navy-blue); margin-top: 15px; width: 80%; }
+        .btn-outline { background: transparent; border: 2px solid var(--danger-color); color: #fff; margin-top: 15px; width: 80%; }
 
         /* Waiting Screen */
         .summary-card {
-            background: #fff; border: 2px dashed var(--success-color);
+            background: #1a1a1a; border: 2px dashed var(--success-color);
             padding: 20px; border-radius: 15px; margin: 20px 0;
         }
 
         .winner-item {
-            background:#fff; padding:12px; margin:10px 0; border-radius:10px; 
+            background:#1a1a1a; padding:12px; margin:10px 0; border-radius:10px; 
             display:flex; justify-content:space-between; align-items:center; 
-            border-left:8px solid var(--success-color); box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: left;
+            border-left:8px solid var(--success-color); box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-align: left; color: #fff;
         }
 
         .modal {
@@ -93,38 +118,38 @@
 
 <div class="container">
     <div class="header-section">
-        <h1 class="main-title">BINGO<br>ENG 2 CAMPUS</h1>
+        <h1 class="main-title">BINGO<br><span>ENG 2 CAMPUS</span></h1>
         <div class="flex-header">
             <img src="https://i.postimg.cc/xqDmL3sc/AO8U2601.jpg" onerror="this.src='https://via.placeholder.com/75'" class="logo-img"> 
             <div class="thank-you-text">
                 ขอขอบคุณทุกท่านที่มาร่วมสนุก<br>
                 <strong>สานสัมพันธ์วิศวฯ 2 วิทยาเขต ประจำปีการศึกษา 2569</strong><br>
-                ขอให้ทุกท่านสนุกกับค่ำคืนนี้
+                ขอให้ทุกท่านสนุกกับกิจกรรม
             </div>
         </div>
     </div>
 
-    <hr style="border:0; border-top:2px solid var(--gold-accent); margin: 15px 0;">
+    <hr style="border:0; border-top:2px solid var(--danger-color); margin: 15px 0;">
 
     <div id="login-section">
         <input type="text" id="username" placeholder="ชื่อ-นามสกุล">
         <input type="text" id="userbatch" placeholder="ภาควิชา (เช่น Ch.E CE ECE)">
-        <button class="btn-start" onclick="login()">เริ่มเล่นเกม</button>
+        <button class="btn-start" onclick="login()">เริ่มเล่นเกม ⚙️</button>
     </div>
 
     <div id="game-section" style="display: none;">
-        <p style="margin:0; color:var(--navy-blue); font-size: 1.1rem;">ผู้เล่น: <b id="display-info" style="color:var(--danger-color)"></b></p>
+        <p style="margin:0; color:#ccc; font-size: 1.1rem;">ผู้เล่น: <b id="display-info" style="color:var(--danger-color)"></b></p>
         <div id="bingo-board" class="board"></div>
         <button id="bingo-submit-btn" class="btn-bingo" onclick="tryBingo()">BINGO! 🏆</button>
     </div>
 
     <div id="waiting-section" style="display: none;">
         <h2 style="color: var(--success-color); margin-bottom: 5px;">บันทึกข้อมูลแล้ว!</h2>
-        <p style="margin-top: 0;">รอประกาศผลผู้ชนะจากกรรมการ</p>
+        <p style="margin-top: 0; color: #ccc;">รอประกาศผลผู้ชนะจากกรรมการ</p>
         
         <div class="summary-card">
-            <span style="color: #666; font-size: 0.9rem;">ข้อมูลของคุณ</span><br>
-            <b id="wait-display-name" style="font-size: 1.3rem; color: var(--navy-blue);"></b><br>
+            <span style="color: #aaa; font-size: 0.9rem;">ข้อมูลของคุณ</span><br>
+            <b id="wait-display-name" style="font-size: 1.3rem; color: #fff;"></b><br>
             <span id="wait-display-batch" style="color: var(--danger-color); font-weight: bold;"></span>
         </div>
 
@@ -134,16 +159,16 @@
     <div id="admin-section" style="display: none;">
         <h2 style="color:var(--danger-color)">Admin Dashboard</h2>
         <div id="winner-list"></div>
-        <button onclick="resetGame()" style="background:#666; color:white; margin-top:20px; width:100%;">ล้างข้อมูลผู้ชนะทั้งหมด</button>
+        <button onclick="resetGame()" style="background:#444; color:white; margin-top:20px; width:100%; padding: 12px; border-radius: 12px; border:none; font-weight:bold; cursor:pointer;">ล้างข้อมูลผู้ชนะทั้งหมด</button>
         <button class="btn-outline" onclick="location.reload()">กลับหน้าแรก</button>
     </div>
 </div>
 
 <div id="viewModal" class="modal">
-    <div style="background:white; padding:25px; border-radius:20px; width:90%; max-width:400px;">
-        <h3 id="modal-title" style="margin-top:0; color:var(--navy-blue)"></h3>
+    <div style="background:#1a1a1a; border: 2px solid var(--danger-color); padding:25px; border-radius:20px; width:90%; max-width:400px; color: #fff;">
+        <h3 id="modal-title" style="margin-top:0; color:var(--danger-color)"></h3>
         <div id="modal-board" class="board"></div>
-        <button onclick="document.getElementById('viewModal').style.display='none'" style="width:100%; background:var(--navy-blue); color:white; padding:10px; border-radius:10px; font-weight:bold;">ปิดหน้าต่าง</button>
+        <button onclick="document.getElementById('viewModal').style.display='none'" style="width:100%; background:var(--danger-color); color:white; padding:10px; border-radius:10px; font-weight:bold; border:none; cursor:pointer;">ปิดหน้าต่าง</button>
     </div>
 </div>
 
@@ -189,7 +214,7 @@
     function generateBoard() {
         const board = document.getElementById('bingo-board');
         board.innerHTML = "";
-        cellsData = []; // Clear old data
+        cellsData = []; 
         let nums = Array.from({length: 75}, (_, i) => i + 1).sort(() => Math.random() - 0.5);
         for (let i = 0; i < 25; i++) {
             let isFree = (i === 12);
@@ -236,7 +261,6 @@
     }
 
     function goToLogin() {
-        // ล้างค่าและกลับไปหน้าล็อกอิน
         document.getElementById('username').value = "";
         document.getElementById('userbatch').value = "";
         document.getElementById('waiting-section').style.display = 'none';
@@ -254,8 +278,8 @@
                 const item = document.createElement('div');
                 item.className = 'winner-item';
                 item.innerHTML = `
-                    <div><b>${data.name} (${data.batch})</b><br><small>${data.time}</small></div>
-                    <button onclick='viewBoard(${JSON.stringify(data)})' style="background:var(--navy-blue); color:white; border-radius:8px;">ตรวจตาราง</button>
+                    <div><b>${data.name} (${data.batch})</b><br><small style="color:#aaa;">${data.time}</small></div>
+                    <button onclick='viewBoard(${JSON.stringify(data)})' style="background:var(--danger-color); color:white; border-radius:8px; border:none; padding:8px 12px; cursor:pointer;">ตรวจตาราง</button>
                 `;
                 list.prepend(item);
             });
