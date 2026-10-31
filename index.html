@@ -11,7 +11,7 @@
     <style>
         :root {
             --navy-blue: #111111;
-            --gold-accent: #d4af37; 
+            --gold-accent: #ffd700; /* สีทองสว่างสำหรับชื่อผู้เล่นและไฮไลท์ */
             --success-color: #28a745;
             --danger-color: #d32f2f; /* สีแดงสำหรับหัวข้อและกรอบ */
             --light-gray: #f8f9fa;
@@ -68,7 +68,7 @@
         }
 
         .thank-you-text { font-size: 0.85rem; color: #cccccc; flex: 1; }
-        .thank-you-text strong { color: var(--danger-color); } /* ข้อความขอบคุณเน้นสีแดง */
+        .thank-you-text strong { color: var(--danger-color); }
 
         .board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 15px 0; }
 
@@ -137,8 +137,8 @@
     </div>
 
     <div id="game-section" style="display: none;">
-        <!-- เปลี่ยนชื่อผู้เล่น (display-info) กลับเป็นสีแดง -->
-        <p style="margin:0; color:#ccc; font-size: 1.1rem;">ผู้เล่น: <b id="display-info" style="color:var(--danger-color)"></b></p>
+        <!-- ชื่อผู้เล่นเปลี่ยนเป็นสีทอง (ไม่ใช่สีแดง) -->
+        <p style="margin:0; color:#ccc; font-size: 1.1rem;">ผู้เล่น: <b id="display-info" style="color:var(--gold-accent)"></b></p>
         <div id="bingo-board" class="board"></div>
         <button id="bingo-submit-btn" class="btn-bingo" onclick="tryBingo()">BINGO! 🏆</button>
     </div>
@@ -149,9 +149,9 @@
         
         <div class="summary-card">
             <span style="color: #aaa; font-size: 0.9rem;">ข้อมูลของคุณ</span><br>
-            <!-- เปลี่ยนชื่อในหน้าจอรอ (wait-display-name) กลับเป็นสีแดง -->
-            <b id="wait-display-name" style="font-size: 1.3rem; color: var(--danger-color);"></b><br>
-            <span id="wait-display-batch" style="color: var(--danger-color); font-weight: bold;"></span>
+            <!-- ชื่อผู้เล่นในหน้าจอรอเปลี่ยนเป็นสีทองเช่นกัน -->
+            <b id="wait-display-name" style="font-size: 1.3rem; color: var(--gold-accent);"></b><br>
+            <span id="wait-display-batch" style="color: var(--gold-accent); font-weight: bold;"></span>
         </div>
 
         <button class="btn-outline" onclick="goToLogin()">กลับหน้าล็อกอิน</button>
